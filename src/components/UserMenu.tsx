@@ -11,9 +11,16 @@ export default function UserMenu() {
     const label = session.user.username || session.user.name || session.user.email || "Account";
     return (
       <div className="flex items-center gap-3">
-        <span className="text-sm text-gray-700 truncate max-w-[220px]" title={label}>
+        <Link
+          href="/user"
+          className="text-sm text-blue-700 underline font-semibold truncate max-w-[220px]"
+          title={label}
+        >
           @{label}
-        </span>
+        </Link>
+        <Link href="/listings/myListings" className="text-sm underline">
+          My Listings
+        </Link>
         <button onClick={() => signOut({ callbackUrl: "/" })} className="text-sm underline">
           Log out
         </button>

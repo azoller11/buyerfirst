@@ -42,17 +42,31 @@ enum OfferStatus {
   WITHDRAWN
 }
 
+model Niche {
+  id        String          @id @default(cuid())
+  slug      String          @unique
+  name      String
+  createdAt DateTime        @default(now())
+  listings  BuyerListing[]
+}
+
 model BuyerListing {
   id          String        @id @default(cuid())
   buyerId     String
   buyer       User          @relation(fields: [buyerId], references: [id])
+
+  nicheId     String?      // temporarily optional
+  niche       Niche?       @relation(fields: [nicheId], references: [id])
+
   title       String
   description String
   photos      String[]      // URLs for MVP
   budgetMin   Int?
   budgetMax   Int?
-  location    String?       // optional
+  location    String?
   status      ListingStatus @default(OPEN)
+  attributes  Json?        // temporarily optional
+
   createdAt   DateTime      @default(now())
   offers      Offer[]
 }

@@ -9,7 +9,8 @@
     "lint": "eslint",
     "prisma:generate": "prisma generate",
     "prisma:db:push": "prisma db push && prisma generate",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "seed:niches": "tsx src/scripts/seed-niches.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.10.0",
@@ -38,6 +39,7 @@
     "eslint-config-next": "15.5.0",
     "prisma": "^6.14.0",
     "tailwindcss": "^4.1.12",
+    "tsx": "^4.20.4",
     "typescript": "^5"
   }
 }
