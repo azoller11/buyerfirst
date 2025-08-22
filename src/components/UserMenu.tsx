@@ -5,21 +5,16 @@ import { useSession, signOut } from "next-auth/react";
 
 export default function UserMenu() {
   const { data: session, status } = useSession();
-
-  if (status === "loading") {
-    return <div className="text-sm text-gray-500">…</div>;
-  }
+  if (status === "loading") return <div className="text-sm text-gray-500">…</div>;
 
   if (status === "authenticated" && session.user) {
+    const label = session.user.username || session.user.name || session.user.email || "Account";
     return (
       <div className="flex items-center gap-3">
-        <span className="text-sm text-gray-700 truncate max-w-[220px]" title={session.user.email ?? ""}>
-          {session.user.email}
+        <span className="text-sm text-gray-700 truncate max-w-[220px]" title={label}>
+          @{label}
         </span>
-        <button
-          onClick={() => signOut({ callbackUrl: "/" })}
-          className="text-sm underline"
-        >
+        <button onClick={() => signOut({ callbackUrl: "/" })} className="text-sm underline">
           Log out
         </button>
       </div>

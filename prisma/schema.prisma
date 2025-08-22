@@ -22,6 +22,7 @@ model User {
   id           String    @id @default(cuid())
   email        String    @unique
   name         String?
+  username     String?   @unique
   image        String?
   passwordHash String?
   emailVerified DateTime?   // <-- add this line
@@ -30,20 +31,42 @@ model User {
   accounts  Account[]
   sessions  Session[]
   listings  BuyerListing[]
+
+  Offer Offer[]
 }
 
-
+enum OfferStatus {
+  ACTIVE
+  ACCEPTED
+  DECLINED
+  WITHDRAWN
+}
 
 model BuyerListing {
-  id        String        @id @default(cuid())
-  buyerId   String
-  buyer     User          @relation(fields: [buyerId], references: [id])
-  title     String
-  details   String
-  budgetMin Int?
-  budgetMax Int?
-  status    ListingStatus @default(OPEN)
-  createdAt DateTime      @default(now())
+  id          String        @id @default(cuid())
+  buyerId     String
+  buyer       User          @relation(fields: [buyerId], references: [id])
+  title       String
+  description String
+  photos      String[]      // URLs for MVP
+  budgetMin   Int?
+  budgetMax   Int?
+  location    String?       // optional
+  status      ListingStatus @default(OPEN)
+  createdAt   DateTime      @default(now())
+  offers      Offer[]
+}
+
+model Offer {
+  id         String   @id @default(cuid())
+  listingId  String
+  listing    BuyerListing @relation(fields: [listingId], references: [id])
+  sellerId   String
+  seller     User     @relation(fields: [sellerId], references: [id])
+  priceCents Int
+  note       String?
+  status     OfferStatus @default(ACTIVE)
+  createdAt  DateTime @default(now())
 }
 
 // ---------- NextAuth adapter models ----------

@@ -32,6 +32,8 @@ export default function RootLayout({
               <div className="flex items-center gap-4">
                 <Link href="/">Home</Link>
                 <Link href="/dashboard">Dashboard</Link>
+                <Link href="/listings">Browse</Link>
+                <Link href="/listings/new">Post WTB</Link>
               </div>
               <UserMenu />
             </div>
