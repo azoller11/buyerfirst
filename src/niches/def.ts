@@ -38,6 +38,7 @@ export const vinylFields = [
   { key: "artist", label: "Artist", type: "text", required: true, placeholder: "e.g., Pink Floyd" },
   { key: "album", label: "Album", type: "text", required: true, placeholder: "The Dark Side of the Moon" },
   { key: "pressing", label: "Pressing/Edition", type: "text", placeholder: "2016 remaster, UK first press..." },
+  { key: "matrix", label: "Matrix/Id", type: "text", placeholder: "ABC-12345 DEF" },
   { key: "grading", label: "Grading", type: "select", options: ["Any","M","NM","VG+","VG","G"] as const },
 ] as const;
 
@@ -46,6 +47,7 @@ export const vinylSchema = z.object({
   album: z.string().min(1),
   pressing: z.string().optional().or(z.literal("")),
   grading: z.enum(["Any","M","NM","VG+","VG","G"]).optional(),
+  matrix: z.string().optional().or(z.literal(""))
 });
 
 export const tradingCardFields = [
